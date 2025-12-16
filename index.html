@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title id="metaTitle">Ремонт бытовой техники в Таллине и Харьюмаа</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0b1f33;
+      --blue: #2563eb;
+      --sky: #60a5fa;
+      --text: #0b1220;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --line: rgba(15,23,42,.10);
+    }
+
+    *{box-sizing:border-box}
+    body{margin:0; font-family:'Inter',sans-serif; background:#fff; color:var(--text)}
+
+    /* TOPBAR (not fixed) */
+    .topbar{
+      position: relative;
+      z-index: 50;
+      padding: 12px 12px 14px;
+      background: linear-gradient(180deg, #eef3f8 0%, #ffffff 100%);
+      border-bottom: 1px solid rgba(15,23,42,.08);
+    }
+
+    .topbar-inner{
+      max-width: 1100px;
+      margin: 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 10px 12px;
+      box-shadow: 0 10px 30px rgba(15,23,42,.08);
+    }
+
+    .brand{display:flex; flex-direction:column; line-height:1.1; min-width:210px;}
+    .brand b{font-family:'Manrope',sans-serif; font-weight:800; font-size:14px; letter-spacing:.2px;}
+    .brand small{color:var(--muted); font-weight:600; font-size:12px;}
+
+    .right{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+
+    .lang{
+      display:flex; gap:6px; padding:6px;
+      border:1px solid var(--line); border-radius:14px;
+      background: rgba(245,247,252,.95);
+    }
+    .lang button{
+      border:0; background:transparent; cursor:pointer;
+      padding:7px 10px; border-radius:12px;
+      font-weight:800; font-size:12px; color:var(--muted);
+    }
+    .lang button.active{
+      background: rgba(37,99,235,.12);
+      color: var(--blue);
+      border: 1px solid rgba(37,99,235,.18);
+    }
+
+    .phone{display:flex; flex-direction:column; text-align:right; line-height:1.15; margin-right:4px;}
+    .phone a{font-weight:900; font-size:15px; text-decoration:none; color:var(--text);}
+    .phone span{font-size:11px; font-weight:600; color:var(--muted);}
+
+    .btn{
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight:700;
+      font-size: 14px;
+      cursor:pointer;
+      border: 1px solid var(--line);
+      background: #fff;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      white-space:nowrap;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--blue), var(--sky));
+      border-color: transparent;
+      color:#fff;
+    }
+    .btn.ghost{
+      background: transparent;
+      border-color: rgba(255,255,255,.35);
+      color:#fff;
+    }
+
+    /* HERO */
+    .hero{
+      position: relative;
+      min-height: 100vh;
+      display:flex;
+      align-items:center;
+      color:#fff;
+      overflow:hidden;
+
+      background:
+        linear-gradient(180deg, rgba(11,31,51,.78), rgba(11,31,51,.55)),
+        url("./hero.jpg"),
+        url("https://images.unsplash.com/photo-1581579186982-47f37b06444b?auto=format&fit=crop&w=1800&q=80");
+      background-size: cover;
+      background-position: center;
+      background-repeat:no-repeat;
+    }
+
+    .hero-inner{width:100%; padding: 54px 16px 48px;}
+    .hero-card{
+      max-width: 1100px;
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .hero-left{padding: 18px 6px;}
+
+    .badge{
+      display:inline-flex;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.20);
+      font-weight:700;
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    h1{
+      font-family:'Manrope',sans-serif;
+      font-weight:800;
+      font-size: 54px;
+      line-height: 1.05;
+      margin: 0 0 14px;
+      letter-spacing: -.6px;
+    }
+
+    .hero-sub{
+      font-size: 18px;
+      opacity: .92;
+      margin: 0 0 18px;
+      font-weight: 500;
+      max-width: 720px;
+    }
+
+    /* Services */
+    .hero-list{
+      list-style:none;
+      padding:0;
+      margin: 18px 0 22px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      max-width: 520px;
+    }
+
+    .svc{border-radius:14px; background:#fff; border:1px solid rgba(15,23,42,.12); overflow:hidden;
+      box-shadow: 0 1px 2px rgba(15,23,42,.06), 0 8px 22px rgba(15,23,42,.10);
+      transition: box-shadow .18s ease, transform .18s ease;
+    }
+    .svc:hover{transform: translateY(-1px); box-shadow: 0 4px 10px rgba(15,23,42,.10), 0 16px 36px rgba(15,23,42,.14);}
+
+    .svc-btn{
+      width:100%;
+      border:0;
+      background: transparent;
+      cursor:pointer;
+      padding: 12px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      color:#0b1220;
+      text-align:left;
+      font-weight: 800;
+    }
+
+    .svc-left{display:flex; align-items:center; gap:10px; min-width:0;}
+    .check{
+      width: 24px; height: 24px;
+      border-radius: 10px;
+      background: rgba(37,99,235,.10);
+      border: 1px solid rgba(15,23,42,.12);
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      flex: 0 0 auto;
+      color:#2563eb;
+    }
+    .svc-name{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+    .chev{
+      width: 30px; height: 30px;
+      border-radius: 12px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(15,23,42,.04);
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+      transition: transform .16s ease;
+      font-weight: 900;
+      color:#0b1220;
+    }
+    .svc.open .chev{ transform: rotate(180deg); }
+
+    .svc-panel{
+      max-height: 0;
+      overflow:hidden;
+      transition: max-height .22s ease;
+      border-top: 1px solid rgba(15,23,42,.12);
+    }
+
+    .svc-panel-inner{
+      padding: 12px 12px 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      font-weight: 600;
+      background: #ffffff;
+      color:#0b1220;
+    }
+
+    .price-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
+    .price-chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid rgba(15,23,42,.12);
+      font-weight: 800;
+      font-size: 13px;
+      color:#0b1220;
+      box-shadow: 0 1px 2px rgba(15,23,42,.06);
+    }
+
+    .svc-note{font-size: 13px; line-height: 1.45; color: rgba(11,18,32,.75); opacity: 1;}
+    .svc-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top: 4px;}
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top: 10px;}
+
+    .hero-right{
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .hero-right h3{font-family:'Manrope',sans-serif; margin:0 0 10px; font-size:18px; font-weight:800;}
+    .hero-right ul{margin:0; padding-left:18px; opacity:.95; font-weight:600;}
+    .hero-right li{margin:7px 0}
+
+    /* CALLBACK FORM */
+    .callback-wrap{
+      max-width: 520px;
+      margin-top: 12px;
+      display:none;
+    }
+    .callback-wrap.open{display:block;}
+    .callback-card{
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 18px;
+      padding: 14px;
+      color: var(--text);
+      box-shadow: 0 10px 30px rgba(15,23,42,.12);
+    }
+    .callback-card h3{
+      font-family:'Manrope',sans-serif;
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .field label{
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(11,18,32,.75);
+    }
+    .field input, .field textarea{
+      width:100%;
+      border: 1px solid rgba(15,23,42,.14);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font: inherit;
+      outline: none;
+      background: #fff;
+    }
+    .field textarea{min-height: 90px; resize: vertical;}
+    .full{grid-column: 1 / -1;}
+    .callback-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .hint{
+      font-size: 12px;
+      color: rgba(11,18,32,.65);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* INFO */
+    .info{
+      padding: 54px 16px 64px;
+      background: linear-gradient(180deg, rgba(11,31,51,.04), rgba(11,31,51,.00));
+    }
+    .info-inner{
+      max-width: 1100px;
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .card{
+      background:#fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(15,23,42,.06);
+    }
+    .card h2{font-family:'Manrope',sans-serif; margin:0 0 10px; font-weight:800; font-size:20px;}
+    .bullets{margin:0; padding-left:18px; color:var(--text); font-weight:600;}
+    .bullets li{margin: 8px 0}
+    .muted{color: var(--muted); font-weight:600; line-height:1.55; margin:0;}
+
+    .faq{display:flex; flex-direction:column; gap:10px; margin-top:6px;}
+    .faq-item{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#fff;}
+    .faq-q{
+      width:100%; text-align:left; padding:12px 12px; background:#fff; border:0; cursor:pointer;
+      display:flex; justify-content:space-between; align-items:center; gap:10px; font-weight:800;
+    }
+    .faq-a{max-height:0; overflow:hidden; transition:max-height .22s ease; border-top:1px solid var(--line);}
+    .faq-a-inner{padding:12px;}
+    .faq-item.open .faq-a{max-height:180px;}
+    .faq-item .chev{border-color: var(--line); background: rgba(15,23,42,.03); color: var(--text);}
+
+    footer{padding:18px 16px 28px; text-align:center; color: var(--muted); font-weight:600; font-size:13px;}
+
+    @media (max-width: 900px){
+      .hero-card{grid-template-columns: 1fr;}
+      h1{font-size: 40px;}
+      .hero-right{display:none;}
+      .brand{min-width:auto;}
+      .phone{display:none;}
+      .info-inner{grid-template-columns: 1fr;}
+
+      .topbar-inner{
+        display:grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+          "brand lang"
+          "call  call";
+        gap: 8px 10px;
+        align-items:center;
+      }
+      .brand{ grid-area: brand; }
+      .lang{ grid-area: lang; }
+      #topCallBtn{ grid-area: call; width:100%; justify-content:center; }
+
+      .hero-inner{ padding-top: 28px; }
+      .grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <b id="brandTitle">Ремонт бытовой техники</b>
+      <small id="brandArea">Таллин / Харьюмаа</small>
+    </div>
+
+    <div class="right">
+      <div class="lang" aria-label="Language">
+        <button type="button" data-lang="et">EST</button>
+        <button type="button" data-lang="ru" class="active">RUS</button>
+        <button type="button" data-lang="en">ENG</button>
+      </div>
+
+      <div class="phone">
+        <a id="topPhone" href="tel:55667590">55667590</a>
+        <span id="topHint">10:00–20:00 · Tallinn / Harjumaa</span>
+      </div>
+
+      <a id="topCallBtn" class="btn primary" href="tel:55667590">Вызвать мастера</a>
+    </div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-card">
+      <div class="hero-left">
+        <div class="badge" id="heroBadge">Таллин / Харьюмаа</div>
+        <h1 id="heroH1">Ремонт бытовой техники<br>в Таллине и Харьюмаа</h1>
+        <p class="hero-sub" id="heroSub">Выезд · Диагностика · Ремонт за один визит</p>
+
+        <ul class="hero-list" id="heroList">
+          <li class="svc" data-service="wash">
+            <button class="svc-btn" type="button" aria-expanded="false">
+              <span class="svc-left">
+                <span class="check">✓</span>
+                <span class="svc-name" data-svc-label>Стиральные машины</span>
+              </span>
+              <span class="chev">⌄</span>
+            </button>
+            <div class="svc-panel">
+              <div class="svc-panel-inner">
+                <div class="price-row">
+                  <span class="price-chip" data-chip-from>Ремонт от 35 €</span>
+                  <span class="price-chip" data-chip-diag>Диагностика 20–30 €</span>
+                  <span class="price-chip" data-chip-km>+0,55 €/км</span>
+                </div>
+                <div class="svc-note" data-svc-note>Итоговая стоимость зависит от неисправности и модели техники.</div>
+                <div class="svc-actions">
+                  <a class="btn primary" data-call-btn href="tel:55667590">Вызвать мастера</a>
+                  <button class="btn" data-callback-btn type="button" data-open-callback>Перезвоните мне</button>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="svc" data-service="dish">
+            <button class="svc-btn" type="button" aria-expanded="false">
+              <span class="svc-left">
+                <span class="check">✓</span>
+                <span class="svc-name" data-svc-label>Посудомоечные машины</span>
+              </span>
+              <span class="chev">⌄</span>
+            </button>
+            <div class="svc-panel"><div class="svc-panel-inner">
+              <div class="price-row">
+                <span class="price-chip" data-chip-from>Ремонт от 35 €</span>
+                <span class="price-chip" data-chip-diag>Диагностика 20–30 €</span>
+                <span class="price-chip" data-chip-km>+0,55 €/км</span>
+              </div>
+              <div class="svc-note" data-svc-note>Итоговая стоимость зависит от неисправности и модели техники.</div>
+              <div class="svc-actions">
+                <a class="btn primary" data-call-btn href="tel:55667590">Вызвать мастера</a>
+                <button class="btn" data-callback-btn type="button" data-open-callback>Перезвоните мне</button>
+              </div>
+            </div></div>
+          </li>
+
+          <li class="svc" data-service="fridge">
+            <button class="svc-btn" type="button" aria-expanded="false">
+              <span class="svc-left">
+                <span class="check">✓</span>
+                <span class="svc-name" data-svc-label>Холодильники и морозильники</span>
+              </span>
+              <span class="chev">⌄</span>
+            </button>
+            <div class="svc-panel"><div class="svc-panel-inner">
+              <div class="price-row">
+                <span class="price-chip" data-chip-from>Ремонт от 40 €</span>
+                <span class="price-chip" data-chip-diag>Диагностика 20–30 €</span>
+                <span class="price-chip" data-chip-km>+0,55 €/км</span>
+              </div>
+              <div class="svc-note" data-svc-note>Итоговая стоимость зависит от неисправности и модели техники.</div>
+              <div class="svc-actions">
+                <a class="btn primary" data-call-btn href="tel:55667590">Вызвать мастера</a>
+                <button class="btn" data-callback-btn type="button" data-open-callback>Перезвоните мне</button>
+              </div>
+            </div></div>
+          </li>
+
+          <li class="svc" data-service="coffee">
+            <button class="svc-btn" type="button" aria-expanded="false">
+              <span class="svc-left">
+                <span class="check">✓</span>
+                <span class="svc-name" data-svc-label>Кофемашины</span>
+              </span>
+              <span class="chev">⌄</span>
+            </button>
+            <div class="svc-panel"><div class="svc-panel-inner">
+              <div class="price-row">
+                <span class="price-chip" data-chip-from>Ремонт от 35 €</span>
+                <span class="price-chip" data-chip-diag>Диагностика 20–30 €</span>
+                <span class="price-chip" data-chip-km>+0,55 €/км</span>
+              </div>
+              <div class="svc-note" data-svc-note>Итоговая стоимость зависит от неисправности и модели техники.</div>
+              <div class="svc-actions">
+                <a class="btn primary" data-call-btn href="tel:55667590">Вызвать мастера</a>
+                <button class="btn" data-callback-btn type="button" data-open-callback>Перезвоните мне</button>
+              </div>
+            </div></div>
+          </li>
+
+          <li class="svc" data-service="dryer">
+            <button class="svc-btn" type="button" aria-expanded="false">
+              <span class="svc-left">
+                <span class="check">✓</span>
+                <span class="svc-name" data-svc-label>Сушильные машины</span>
+              </span>
+              <span class="chev">⌄</span>
+            </button>
+            <div class="svc-panel"><div class="svc-panel-inner">
+              <div class="price-row">
+                <span class="price-chip" data-chip-from>Ремонт от 40 €</span>
+                <span class="price-chip" data-chip-diag>Диагностика 20–30 €</span>
+                <span class="price-chip" data-chip-km>+0,55 €/км</span>
+              </div>
+              <div class="svc-note" data-svc-note>Итоговая стоимость зависит от неисправности и модели техники.</div>
+              <div class="svc-actions">
+                <a class="btn primary" data-call-btn href="tel:55667590">Вызвать мастера</a>
+                <button class="btn" data-callback-btn type="button" data-open-callback>Перезвоните мне</button>
+              </div>
+            </div></div>
+          </li>
+
+          <li class="svc" data-service="oven">
+            <button class="svc-btn" type="button" aria-expanded="false">
+              <span class="svc-left">
+                <span class="check">✓</span>
+                <span class="svc-name" data-svc-label>Плиты и духовки</span>
+              </span>
+              <span class="chev">⌄</span>
+            </button>
+            <div class="svc-panel"><div class="svc-panel-inner">
+              <div class="price-row">
+                <span class="price-chip" data-chip-from>Ремонт от 40 €</span>
+                <span class="price-chip" data-chip-diag>Диагностика 20–30 €</span>
+                <span class="price-chip" data-chip-km>+0,55 €/км</span>
+              </div>
+              <div class="svc-note" data-svc-note>Итоговая стоимость зависит от неисправности и модели техники.</div>
+              <div class="svc-actions">
+                <a class="btn primary" data-call-btn href="tel:55667590">Вызвать мастера</a>
+                <button class="btn" data-callback-btn type="button" data-open-callback>Перезвоните мне</button>
+              </div>
+            </div></div>
+          </li>
+        </ul>
+
+        <div class="hero-actions">
+          <a id="heroCallBtn" class="btn primary" href="tel:55667590">Вызвать мастера</a>
+          <button class="btn ghost" id="heroCallbackBtn" type="button" data-open-callback>Перезвоните мне</button>
+        </div>
+
+        <!-- Callback form -->
+        <div class="callback-wrap" id="callbackBox">
+          <div class="callback-card">
+            <h3 id="cbTitle">Заказать звонок</h3>
+
+            <form id="callbackForm">
+              <div class="grid">
+                <div class="field">
+                  <label id="cbNameLabel" for="cbName">Имя</label>
+                  <input id="cbName" type="text" autocomplete="name" placeholder="Martin" />
+                </div>
+                <div class="field">
+                  <label id="cbPhoneLabel" for="cbPhone">Телефон *</label>
+                  <input id="cbPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+372 5xxxxxxx" required />
+                </div>
+
+                <div class="field full">
+                  <label id="cbModelLabel" for="cbModel">Техника / модель</label>
+                  <input id="cbModel" type="text" placeholder="Напр. LG F2J3NS0W / Bosch SMS..." />
+                </div>
+
+                <div class="field full">
+                  <label id="cbIssueLabel" for="cbIssue">Что сломано / описание</label>
+                  <textarea id="cbIssue" placeholder="Коротко опиши проблему..."></textarea>
+                </div>
+
+                <div class="field full">
+                  <label id="cbAddrLabel" for="cbAddr">Адрес (по желанию)</label>
+                  <input id="cbAddr" type="text" placeholder="Tallinn, Mustamäe..." />
+                </div>
+              </div>
+
+              <div class="callback-actions">
+                <button class="btn primary" type="submit" id="cbSend">Отправить</button>
+                <button class="btn" type="button" id="cbClose">Закрыть</button>
+              </div>
+
+              <div class="hint" id="cbHint">
+                Нажимая “Отправить”, откроется ваше почтовое приложение с готовым письмом.
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hero-right">
+        <h3 id="rightTitle">Быстро и понятно</h3>
+        <ul id="rightList">
+          <li>Ориентир по цене до выезда</li>
+          <li>Диагностика на месте</li>
+          <li>Работаем по Харьюмаа</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info">
+  <div class="info-inner">
+    <div class="card">
+      <h2 id="whyTitle">Miks valida meid?</h2>
+      <ul class="bullets" id="whyList">
+        <li>Teenindus Tallinnas ja kogu Harjumaal</li>
+        <li>Selged ja ausad hinnavahemikud</li>
+        <li>Diagnostika kohapeal</li>
+        <li>Kogemus erinevate kodumasinatega</li>
+        <li>Kiire ühenduse võtmine ja väljakutse</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2 id="areaTitle">Teeninduspiirkond</h2>
+      <p class="muted" id="areaText">
+        Teenindame kliente Tallinnas ja Harjumaal. Väljaspool Tallinna lisandub sõidutasu 0,55 €/km.
+      </p>
+    </div>
+
+    <div class="card" style="grid-column: 1 / -1;">
+      <h2 id="faqTitle">Korduma kippuvad küsimused</h2>
+
+      <div class="faq" id="faqBox">
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span id="faqQ1">Kui palju maksab diagnostika?</span>
+            <span class="chev">⌄</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p class="muted" id="faqA1" style="margin:0;">Tavaliselt 20–30 €, sõltuvalt seadmest ja asukohast.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span id="faqQ2">Kas töötute väljaspool Tallinna?</span>
+            <span class="chev">⌄</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p class="muted" id="faqA2" style="margin:0;">Jah, teenindame kogu Harjumaad. Lisandub tasu 0,55 €/km.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span id="faqQ3">Kas hind on fikseeritud?</span>
+            <span class="chev">⌄</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p class="muted" id="faqA3" style="margin:0;">Ei, hinnad on orientiirid. Lõplik hind selgub pärast diagnostikat.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span id="faqQ4">Milliseid seadmeid te remondite?</span>
+            <span class="chev">⌄</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p class="muted" id="faqA4" style="margin:0;">
+              Enamikku levinud kodumasinaid: pesumasinad, külmikud, ahjud, kohvimasinad, boilerid jne.
+            </p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footerText">© 2025 Kodutehnika remont • Tallinn / Harjumaa</footer>
+
+<script>
+  // куда отправлять "Перезвоните мне"
+  const CALLBACK_EMAIL = "martintachilin1996@gmail.com";
+
+  const PHONES = { et: "53060770", ru: "55667590", en: "53060770" };
+
+  const FROM = { wash:"35 €", dish:"35 €", fridge:"40 €", coffee:"35 €", dryer:"40 €", oven:"40 €" };
+  const DIAG = "20–30 €";
+  const KM = "0,55 €/км";
+
+  const T = {
+    ru: {
+      brandTitle: "Ремонт бытовой техники",
+      brandArea: "Таллин / Харьюмаа",
+      topHint: "10:00–20:00 · Tallinn / Harjumaa",
+      call: "Вызвать мастера",
+      callback: "Перезвоните мне",
+      badge: "Таллин / Харьюмаа",
+      h1: "Ремонт бытовой техники<br>в Таллине и Харьюмаа",
+      sub: "Выезд · Диагностика · Ремонт за один визит",
+      rightTitle: "Быстро и понятно",
+      right: ["Ориентир по цене до выезда","Диагностика на месте","Работаем по Харьюмаа"],
+      services: { wash:"Стиральные машины", dish:"Посудомоечные машины", fridge:"Холодильники и морозильники", coffee:"Кофемашины", dryer:"Сушильные машины", oven:"Плиты и духовки" },
+      priceFrom: "Ремонт от",
+      diag: "Диагностика",
+      outside: "Выезд за пределы Таллина",
+      note: "Итоговая стоимость зависит от неисправности и модели техники.",
+
+      whyTitle: "Почему выбирают нас?",
+      whyList: ["Выезд по Таллину и всему Харьюмаа","Понятные и честные диапазоны цен","Диагностика на месте","Опыт с разной бытовой техникой","Быстрая связь и выезд"],
+      areaTitle: "Зона обслуживания",
+      areaText: `Обслуживаем клиентов в Таллине и Харьюмаа. За пределами Таллина добавляется дорожный сбор ${KM}.`,
+      faqTitle: "Частые вопросы",
+      faq: [
+        ["Сколько стоит диагностика?", `Обычно ${DIAG}, зависит от техники и адреса.`],
+        ["Работаете ли вы за пределами Таллина?", `Да, обслуживаем весь Харьюмаа. Доплата ${KM}.`],
+        ["Цена фиксированная?", "Нет, цены ориентировочные. Итоговая цена — после диагностики."],
+        ["Какие устройства вы ремонтируете?", "Большинство популярных: стиралки, холодильники, духовки, кофемашины, бойлеры и т.д."]
+      ],
+      footer: "© 2025 Ремонт бытовой техники • Tallinn / Harjumaa",
+
+      cbTitle: "Заказать звонок",
+      cbName: "Имя",
+      cbPhone: "Телефон *",
+      cbModel: "Техника / модель",
+      cbIssue: "Что сломано / описание",
+      cbAddr: "Адрес (по желанию)",
+      cbSend: "Отправить",
+      cbClose: "Закрыть",
+      cbHint: "Нажимая “Отправить”, откроется ваше почтовое приложение с готовым письмом."
+    },
+
+    et: {
+      brandTitle: "Kodutehnika remont",
+      brandArea: "Tallinn / Harjumaa",
+      topHint: "10:00–20:00 · Tallinn / Harjumaa",
+      call: "Kutsu meister",
+      callback: "Helista mulle tagasi",
+      badge: "Tallinn / Harjumaa",
+      h1: "Kodutehnika remont<br>Tallinnas ja Harjumaal",
+      sub: "Väljakutse · Diagnostika · Remont ühe külastusega",
+      rightTitle: "Kiire ja selge",
+      right: ["Hinnainfo enne väljakutset","Diagnostika kohapeal","Töötame Harjumaal"],
+      services: { wash:"Pesumasinad", dish:"Nõudepesumasinad", fridge:"Külmikud ja sügavkülmad", coffee:"Kohvimasinad", dryer:"Kuivatid", oven:"Pliidid ja ahjud" },
+      priceFrom: "Remont alates",
+      diag: "Diagnostika",
+      outside: "Väljaspool Tallinna",
+      note: "Lõplik hind sõltub rikkest ja seadme mudelist.",
+
+      whyTitle: "Miks valida meid?",
+      whyList: ["Teenindus Tallinnas ja kogu Harjumaal","Selged ja ausad hinnavahemikud","Diagnostika kohapeal","Kogemus erinevate kodumasinatega","Kiire ühenduse võtmine ja väljakutse"],
+      areaTitle: "Teeninduspiirkond",
+      areaText: `Teenindame kliente Tallinnas ja Harjumaal. Väljaspool Tallinna lisandub sõidutasu ${KM}.`,
+      faqTitle: "Korduma kippuvad küsimused",
+      faq: [
+        ["Kui palju maksab diagnostika?", `Tavaliselt ${DIAG}, sõltuvalt seadmest ja asukohast.`],
+        ["Kas töötate väljaspool Tallinna?", `Jah, teenindame kogu Harjumaad. Lisandub tasu ${KM}.`],
+        ["Kas hind on fikseeritud?", "Ei, hinnad on orientiirid. Lõplik hind selgub pärast diagnostikat."],
+        ["Milliseid seadmeid te remondite?", "Enamikku levinud kodumasinaid: pesumasinad, külmikud, ahjud, kohvimasinad, boilerid jne."]
+      ],
+      footer: "© 2025 Kodutehnika remont • Tallinn / Harjumaa",
+
+      cbTitle: "Tagasihelistamine",
+      cbName: "Nimi",
+      cbPhone: "Telefon *",
+      cbModel: "Seade / mudel",
+      cbIssue: "Rikke kirjeldus",
+      cbAddr: "Aadress (soovi korral)",
+      cbSend: "Saada",
+      cbClose: "Sulge",
+      cbHint: "Vajutades “Saada” avaneb sinu e-postirakendus valmis kirjaga."
+    },
+
+    en: {
+      brandTitle: "Appliance Repair",
+      brandArea: "Tallinn / Harju County",
+      topHint: "10:00–20:00 · Tallinn / Harju County",
+      call: "Call a technician",
+      callback: "Call me back",
+      badge: "Tallinn / Harju County",
+      h1: "Appliance Repair<br>in Tallinn and Harju County",
+      sub: "Call-out · Diagnostics · Repair in one visit",
+      rightTitle: "Fast and clear",
+      right: ["Upfront price guidance","On-site diagnostics","Service across Harju County"],
+      services: { wash:"Washing machines", dish:"Dishwashers", fridge:"Fridges & freezers", coffee:"Coffee machines", dryer:"Dryers", oven:"Ovens & stoves" },
+      priceFrom: "Repair from",
+      diag: "Diagnostics",
+      outside: "Outside Tallinn",
+      note: "Final cost depends on the issue and the model.",
+
+      whyTitle: "Why choose us?",
+      whyList: ["Service in Tallinn and across Harju County","Clear and honest price ranges","On-site diagnostics","Experience with many appliance types","Fast response and call-out"],
+      areaTitle: "Service area",
+      areaText: `We serve customers in Tallinn and Harju County. Outside Tallinn there is a travel fee of ${KM}.`,
+      faqTitle: "FAQ",
+      faq: [
+        ["How much does diagnostics cost?", `Usually ${DIAG}, depending on the device and location.`],
+        ["Do you work outside Tallinn?", `Yes, across Harju County. Travel fee ${KM}.`],
+        ["Is the price fixed?", "No. Prices are guidance only. Final price is confirmed after diagnostics."],
+        ["What appliances do you repair?", "Most common appliances: washing machines, fridges, ovens, coffee machines, boilers, etc."]
+      ],
+      footer: "© 2025 Appliance Repair • Tallinn / Harju County",
+
+      cbTitle: "Request a callback",
+      cbName: "Name",
+      cbPhone: "Phone *",
+      cbModel: "Appliance / model",
+      cbIssue: "Issue description",
+      cbAddr: "Address (optional)",
+      cbSend: "Send",
+      cbClose: "Close",
+      cbHint: "By clicking “Send”, your email app will open with a prepared message."
+    }
+  };
+
+  const el = (id) => document.getElementById(id);
+
+  function setPhone(lang){
+    const p = PHONES[lang];
+    el("topPhone").textContent = p;
+    el("topPhone").href = `tel:${p}`;
+    el("topCallBtn").href = `tel:${p}`;
+    el("heroCallBtn").href = `tel:${p}`;
+    document.querySelectorAll("[data-call-btn]").forEach(a => a.href = `tel:${p}`);
+  }
+
+  function setAccordionPrices(lang){
+    const t = T[lang];
+    document.querySelectorAll(".svc").forEach(svc => {
+      const key = svc.dataset.service;
+      const from = FROM[key] || "35 €";
+
+      const label = svc.querySelector("[data-svc-label]");
+      if (label) label.textContent = t.services[key];
+
+      const chipFrom = svc.querySelector("[data-chip-from]");
+      const chipDiag = svc.querySelector("[data-chip-diag]");
+      const chipKm = svc.querySelector("[data-chip-km]");
+      const note = svc.querySelector("[data-svc-note]");
+      const cb = svc.querySelector("[data-callback-btn]");
+
+      if (chipFrom) chipFrom.textContent = `${t.priceFrom} ${from}`;
+      if (chipDiag) chipDiag.textContent = `${t.diag} ${DIAG}`;
+      if (chipKm) chipKm.textContent = `${t.outside}: +${KM}`;
+      if (note) note.textContent = t.note;
+      if (cb) cb.textContent = t.callback;
+    });
+  }
+
+  function applyLang(lang){
+    const t = T[lang];
+    document.documentElement.lang = lang;
+
+    el("brandTitle").textContent = t.brandTitle;
+    el("brandArea").textContent = t.brandArea;
+    el("topHint").textContent = t.topHint;
+
+    el("topCallBtn").textContent = t.call;
+    el("heroCallBtn").textContent = t.call;
+    el("heroCallbackBtn").textContent = t.callback;
+
+    el("heroBadge").textContent = t.badge;
+    el("heroH1").innerHTML = t.h1;
+    el("heroSub").textContent = t.sub;
+
+    el("rightTitle").textContent = t.rightTitle;
+    const rightList = el("rightList");
+    rightList.innerHTML = "";
+    t.right.forEach(x => {
+      const li = document.createElement("li");
+      li.textContent = x;
+      rightList.appendChild(li);
+    });
+
+    el("whyTitle").textContent = t.whyTitle;
+    const whyList = el("whyList");
+    whyList.innerHTML = "";
+    t.whyList.forEach(x => {
+      const li = document.createElement("li");
+      li.textContent = x;
+      whyList.appendChild(li);
+    });
+
+    el("areaTitle").textContent = t.areaTitle;
+    el("areaText").textContent = t.areaText;
+    el("faqTitle").textContent = t.faqTitle;
+
+    el("faqQ1").textContent = t.faq[0][0];
+    el("faqA1").textContent = t.faq[0][1];
+    el("faqQ2").textContent = t.faq[1][0];
+    el("faqA2").textContent = t.faq[1][1];
+    el("faqQ3").textContent = t.faq[2][0];
+    el("faqA3").textContent = t.faq[2][1];
+    el("faqQ4").textContent = t.faq[3][0];
+    el("faqA4").textContent = t.faq[3][1];
+
+    el("footerText").textContent = t.footer;
+
+    // callback UI texts
+    el("cbTitle").textContent = t.cbTitle;
+    el("cbNameLabel").textContent = t.cbName;
+    el("cbPhoneLabel").textContent = t.cbPhone;
+    el("cbModelLabel").textContent = t.cbModel;
+    el("cbIssueLabel").textContent = t.cbIssue;
+    el("cbAddrLabel").textContent = t.cbAddr;
+    el("cbSend").textContent = t.cbSend;
+    el("cbClose").textContent = t.cbClose;
+    el("cbHint").textContent = t.cbHint;
+
+    document.querySelectorAll(".lang button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+    localStorage.setItem("lang", lang);
+
+    setPhone(lang);
+    setAccordionPrices(lang);
+  }
+
+  // Services accordion
+  document.querySelectorAll(".svc").forEach(svc => {
+    const btn = svc.querySelector(".svc-btn");
+    const panel = svc.querySelector(".svc-panel");
+
+    function open(){
+      document.querySelectorAll(".svc.open").forEach(other => {
+        if (other === svc) return;
+        other.classList.remove("open");
+        other.querySelector(".svc-btn").setAttribute("aria-expanded", "false");
+        other.querySelector(".svc-panel").style.maxHeight = "0px";
+      });
+
+      svc.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+
+    function close(){
+      svc.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+      panel.style.maxHeight = "0px";
+    }
+
+    btn.addEventListener("click", () => svc.classList.contains("open") ? close() : open());
+    window.addEventListener("resize", () => { if (svc.classList.contains("open")) panel.style.maxHeight = panel.scrollHeight + "px"; });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll(".faq-item").forEach(item => {
+    const q = item.querySelector(".faq-q");
+    const a = item.querySelector(".faq-a");
+    q.addEventListener("click", () => {
+      item.classList.toggle("open");
+      a.style.maxHeight = item.classList.contains("open") ? (a.scrollHeight + "px") : "0px";
+    });
+  });
+
+  // Callback open/close + mailto submit
+  const callbackBox = document.getElementById("callbackBox");
+  const callbackForm = document.getElementById("callbackForm");
+
+  function openCallback(){
+    callbackBox.classList.add("open");
+    callbackBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTimeout(() => document.getElementById("cbPhone")?.focus(), 200);
+  }
+  function closeCallback(){
+    callbackBox.classList.remove("open");
+  }
+
+  document.querySelectorAll("[data-open-callback]").forEach(btn => btn.addEventListener("click", openCallback));
+  document.getElementById("cbClose").addEventListener("click", closeCallback);
+
+  callbackForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const lang = localStorage.getItem("lang") || "ru";
+    const t = T[lang];
+
+    const name = document.getElementById("cbName").value.trim();
+    const phone = document.getElementById("cbPhone").value.trim();
+    const model = document.getElementById("cbModel").value.trim();
+    const issue = document.getElementById("cbIssue").value.trim();
+    const addr = document.getElementById("cbAddr").value.trim();
+
+    if(!phone){
+      document.getElementById("cbPhone").focus();
+      return;
+    }
+
+    const subject = (lang === "et") ? "Tagasihelistamise soov" : (lang === "en" ? "Callback request" : "Запрос на звонок");
+    const body =
+`Language: ${lang.toUpperCase()}
+Name: ${name || "-"}
+Phone: ${phone}
+Appliance/model: ${model || "-"}
+Issue: ${issue || "-"}
+Address: ${addr || "-"}
+
+Sent from website`;
+
+    const mailto = `mailto:${encodeURIComponent(CALLBACK_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+  });
+
+  // Language switch
+  document.querySelectorAll(".lang button").forEach(btn =>
+    btn.addEventListener("click", () => applyLang(btn.dataset.lang))
+  );
+
+  // init
+  applyLang(localStorage.getItem("lang") || "ru");
+</script>
+
+</body>
+</html>
