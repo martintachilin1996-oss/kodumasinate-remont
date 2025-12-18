@@ -168,7 +168,11 @@
       max-width: 520px;
     }
 
-    .svc{border-radius:14px; background:#fff; border:1px solid rgba(15,23,42,.12); overflow:hidden;
+    .svc{
+      border-radius:14px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.12);
+      overflow:hidden;
       box-shadow: 0 1px 2px rgba(15,23,42,.06), 0 8px 22px rgba(15,23,42,.10);
       transition: box-shadow .18s ease, transform .18s ease;
     }
@@ -179,7 +183,7 @@
       border:0;
       background: transparent;
       cursor:pointer;
-      padding: 12px 12px;
+      padding: 12px 12px; /* одинаково слева/справа */
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -187,6 +191,7 @@
       color:#0b1220;
       text-align:left;
       font-weight: 800;
+      font-size: 16px;
     }
 
     .svc-left{display:flex; align-items:center; gap:10px; min-width:0;}
@@ -201,7 +206,15 @@
       flex: 0 0 auto;
       color:#2563eb;
     }
-    .svc-name{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .svc-name{
+      display:block;
+      min-width:0;
+      font-size: 16px;
+      line-height: 1.2;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
 
     .chev{
       width: 30px; height: 30px;
@@ -358,7 +371,31 @@
     .faq-item.open .faq-a{max-height:180px;}
     .faq-item .chev{border-color: var(--line); background: rgba(15,23,42,.03); color: var(--text);}
 
-    footer{padding:18px 16px 28px; text-align:center; color: var(--muted); font-weight:600; font-size:13px;}
+    footer{
+      padding:18px 16px 28px;
+      text-align:center;
+      color: var(--muted);
+      font-weight:600;
+      font-size:13px;
+    }
+    .footer-phones{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:10px 14px;
+      margin-bottom: 8px;
+      font-weight: 800;
+      color: rgba(11,18,32,.80);
+    }
+    .footer-phones a{
+      color: inherit;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 1px 2px rgba(15,23,42,.05);
+    }
 
     @media (max-width: 900px){
       .hero-card{grid-template-columns: 1fr;}
@@ -383,6 +420,23 @@
 
       .hero-inner{ padding-top: 28px; }
       .grid{ grid-template-columns: 1fr; }
+
+      /* Mobile: увеличить названия (без расползания плиток) */
+      .svc-btn{ font-size: 16px; }
+      .svc-name{
+        font-size: clamp(16px, 4.2vw, 18px);
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+        display: block;
+      }
+
+      /* RU: на 1 шаг меньше, чтобы точно не “выпирало” */
+      html[lang="ru"] .svc-name{
+        font-size: clamp(15px, 3.9vw, 17px);
+      }
     }
 
     /* Desktop call modal */
@@ -639,26 +693,26 @@
               <div class="grid">
                 <div class="field">
                   <label id="cbNameLabel" for="cbName">Имя</label>
-                  <input id="cbName" type="text" autocomplete="name" placeholder="Martin" />
+                  <input id="cbName" type="text" autocomplete="name" placeholder="" />
                 </div>
                 <div class="field">
                   <label id="cbPhoneLabel" for="cbPhone">Телефон *</label>
-                  <input id="cbPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="5xxxxxxx" required />
+                  <input id="cbPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="" required />
                 </div>
 
                 <div class="field full">
                   <label id="cbModelLabel" for="cbModel">Техника / модель</label>
-                  <input id="cbModel" type="text" placeholder="Напр. LG F2J3NS0W / Bosch SMS..." />
+                  <input id="cbModel" type="text" placeholder="" />
                 </div>
 
                 <div class="field full">
                   <label id="cbIssueLabel" for="cbIssue">Что сломано / описание</label>
-                  <textarea id="cbIssue" placeholder="Коротко опиши проблему..."></textarea>
+                  <textarea id="cbIssue" placeholder=""></textarea>
                 </div>
 
                 <div class="field full">
                   <label id="cbAddrLabel" for="cbAddr">Адрес (по желанию)</label>
-                  <input id="cbAddr" type="text" placeholder="Tallinn, Mustamäe..." />
+                  <input id="cbAddr" type="text" placeholder="" />
                 </div>
               </div>
 
@@ -705,6 +759,16 @@
       <h2 id="areaTitle">Teeninduspiirkond</h2>
       <p class="muted" id="areaText">
         Teenindame kliente Tallinnas ja Harjumaal. Väljaspool Tallinna lisandub sõidutasu 0,55 €/km.
+      </p>
+    </div>
+
+    <!-- ✅ ABOUT block BEFORE FAQ -->
+    <div class="card" style="grid-column: 1 / -1;">
+      <h2 id="aboutTitle">О компании</h2>
+      <p class="muted" id="aboutText" style="margin:0;">
+        Мы занимаемся ремонтом бытовой техники в Таллине и Харьюмаа. Работаем аккуратно и прозрачно: заранее
+        называем ориентир по стоимости, выполняем диагностику на месте и стараемся закрывать ремонт за один визит.
+        Удобно связаться — звонок или заявка на обратный звонок.
       </p>
     </div>
 
@@ -758,7 +822,13 @@
   </div>
 </section>
 
-<footer id="footerText">© 2025 Kodutehnika remont • Tallinn / Harjumaa</footer>
+<footer>
+  <div class="footer-phones" id="footerPhones">
+    <a href="tel:58112889">58112889</a>
+    <a href="tel:55667590">55667590</a>
+  </div>
+  <div id="footerText">© 2025 Kodutehnika remont • Tallinn / Harjumaa</div>
+</footer>
 
 <!-- Desktop "call" modal -->
 <div class="call-modal" id="callModal" aria-hidden="true">
@@ -827,9 +897,16 @@
         ["Сколько стоит диагностика?", `Обычно ${DIAG}, зависит от техники и адреса.`],
         ["Работаете ли вы за пределами Таллина?", `Да, обслуживаем весь Харьюмаа. Доплата ${KM_VAL}.`],
         ["Цена фиксированная?", "Нет, цены ориентировочные. Итоговая цена — после диагностики."],
-        ["Какие устройства вы ремонтируете?", "Большинство популярных: стиралки, холодильники, духовки, кофемашины, бойлеры и т.д."]
+        ["Какие устройства вы ремонтируете?", "Большинство популярных: стиральные машины, холодильники, духовки, кофемашины, бойлеры и т.д."]
       ],
       footer: "© 2025 Ремонт бытовой техники • Tallinn / Harjumaa",
+
+      aboutTitle: "О компании",
+      aboutText:
+        "Мы занимаемся ремонтом бытовой техники в Таллине и Харьюмаа. Работаем аккуратно и прозрачно: заранее называем ориентир по стоимости, выполняем диагностику на месте и стараемся закрывать ремонт за один визит. Удобно связаться — звонок или заявка на обратный звонок.",
+
+      footerPhonesHtml:
+        `<a href="tel:58112889">58112889</a><a href="tel:55667590">55667590</a>`,
 
       cbTitle: "Заказать звонок",
       cbName: "Имя",
@@ -839,7 +916,23 @@
       cbAddr: "Адрес (по желанию)",
       cbSend: "Отправить",
       cbClose: "Закрыть",
-      cbHint: "Нажимая “Отправить”, откроется ваше почтовое приложение с готовым письмом."
+      cbHint: "Нажимая “Отправить”, откроется ваше почтовое приложение с готовым письмом.",
+
+      cbNamePh: "Напр. Иван",
+      cbPhonePh: "5xxxxxxx",
+      cbModelPh: "Напр. LG F2J3NS0W / Bosch SMS...",
+      cbIssuePh: "Коротко опишите проблему...",
+      cbAddrPh: "Tallinn, Mustamäe...",
+
+      mail: {
+        lang: "Язык",
+        name: "Имя",
+        phone: "Телефон",
+        model: "Техника/модель",
+        issue: "Проблема",
+        addr: "Адрес",
+        sent: "Отправлено с сайта"
+      }
     },
 
     et: {
@@ -872,6 +965,13 @@
       ],
       footer: "© 2025 Kodutehnika remont • Tallinn / Harjumaa",
 
+      aboutTitle: "Meist",
+      aboutText:
+        "Remondime kodutehnikat Tallinnas ja Harjumaal. Anname enne väljakutset selge hinnainfo, teeme diagnostika kohapeal ning proovime remondi lahendada ühe külastusega. Ühendust saab võtta kõnega või tellida tagasihelistamise.",
+
+      footerPhonesHtml:
+        `<a href="tel:58112889">58112889</a><a href="tel:55667590">55667590</a>`,
+
       cbTitle: "Tagasihelistamine",
       cbName: "Nimi",
       cbPhone: "Telefon *",
@@ -880,7 +980,23 @@
       cbAddr: "Aadress (soovi korral)",
       cbSend: "Saada",
       cbClose: "Sulge",
-      cbHint: "Vajutades “Saada” avaneb sinu e-postirakendus valmis kirjaga."
+      cbHint: "Vajutades “Saada” avaneb sinu e-postirakendus valmis kirjaga.",
+
+      cbNamePh: "Nt. Mari",
+      cbPhonePh: "5xxxxxxx",
+      cbModelPh: "Nt. LG F2J3NS0W / Bosch SMS...",
+      cbIssuePh: "Kirjelda lühidalt probleemi...",
+      cbAddrPh: "Tallinn, Mustamäe...",
+
+      mail: {
+        lang: "Keel",
+        name: "Nimi",
+        phone: "Telefon",
+        model: "Seade/mudel",
+        issue: "Rike",
+        addr: "Aadress",
+        sent: "Saadetud veebilehelt"
+      }
     },
 
     en: {
@@ -913,6 +1029,13 @@
       ],
       footer: "© 2025 Appliance Repair • Tallinn / Harju County",
 
+      aboutTitle: "About us",
+      aboutText:
+        "We repair home appliances in Tallinn and Harju County. We give price guidance before the visit, run on-site diagnostics, and aim to complete repairs in one visit when possible. Contact us by phone or request a callback.",
+
+      footerPhonesHtml:
+        `<a href="tel:58112889">58112889</a><a href="tel:55667590">55667590</a>`,
+
       cbTitle: "Request a callback",
       cbName: "Name",
       cbPhone: "Phone *",
@@ -921,7 +1044,23 @@
       cbAddr: "Address (optional)",
       cbSend: "Send",
       cbClose: "Close",
-      cbHint: "By clicking “Send”, your email app will open with a prepared message."
+      cbHint: "By clicking “Send”, your email app will open with a prepared message.",
+
+      cbNamePh: "e.g. John",
+      cbPhonePh: "5xxxxxxx",
+      cbModelPh: "e.g. LG F2J3NS0W / Bosch SMS...",
+      cbIssuePh: "Briefly describe the issue...",
+      cbAddrPh: "Tallinn, Mustamäe...",
+
+      mail: {
+        lang: "Language",
+        name: "Name",
+        phone: "Phone",
+        model: "Appliance/model",
+        issue: "Issue",
+        addr: "Address",
+        sent: "Sent from website"
+      }
     }
   };
 
@@ -967,7 +1106,7 @@
       if (chipKm) chipKm.textContent = `${t.outside}: +${KM_VAL}`;
       if (note) note.textContent = t.note;
       if (cb) cb.textContent = t.callback;
-      if (callBtn) callBtn.textContent = t.call; // IMPORTANT: call text per language
+      if (callBtn) callBtn.textContent = t.call;
     });
   }
 
@@ -1007,6 +1146,11 @@
 
     el("areaTitle").textContent = t.areaTitle;
     el("areaText").textContent = t.areaText;
+
+    // About
+    el("aboutTitle").textContent = t.aboutTitle;
+    el("aboutText").textContent = t.aboutText;
+
     el("faqTitle").textContent = t.faqTitle;
 
     el("faqQ1").textContent = t.faq[0][0];
@@ -1019,6 +1163,7 @@
     el("faqA4").textContent = t.faq[3][1];
 
     el("footerText").textContent = t.footer;
+    el("footerPhones").innerHTML = t.footerPhonesHtml;
 
     // callback UI texts
     el("cbTitle").textContent = t.cbTitle;
@@ -1030,6 +1175,13 @@
     el("cbSend").textContent = t.cbSend;
     el("cbClose").textContent = t.cbClose;
     el("cbHint").textContent = t.cbHint;
+
+    // placeholders strictly by language
+    el("cbName").placeholder = t.cbNamePh || "";
+    el("cbPhone").placeholder = t.cbPhonePh || "";
+    el("cbModel").placeholder = t.cbModelPh || "";
+    el("cbIssue").placeholder = t.cbIssuePh || "";
+    el("cbAddr").placeholder = t.cbAddrPh || "";
 
     document.querySelectorAll(".lang button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
     localStorage.setItem("lang", lang);
@@ -1096,6 +1248,7 @@
     e.preventDefault();
 
     const lang = localStorage.getItem("lang") || "ru";
+    const t = T[lang] || T.ru;
 
     const name = document.getElementById("cbName").value.trim();
     const phone = document.getElementById("cbPhone").value.trim();
@@ -1113,18 +1266,21 @@
       (lang === "en") ? "Callback request" :
       "Запрос на звонок";
 
+    const m = t.mail || T.ru.mail;
+
     const body =
-`Language: ${lang.toUpperCase()}
-Name: ${name || "-"}
-Phone: ${phone}
-Appliance/model: ${model || "-"}
-Issue: ${issue || "-"}
-Address: ${addr || "-"}
+`${m.lang}: ${lang.toUpperCase()}
+${m.name}: ${name || "-"}
+${m.phone}: ${phone}
+${m.model}: ${model || "-"}
+${m.issue}: ${issue || "-"}
+${m.addr}: ${addr || "-"}
 
-Sent from website`;
+${m.sent}`;
 
-    const mailto = `mailto:${encodeURIComponent(CALLBACK_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+    // ✅ IMPORTANT: do NOT encode email in mailto: part (mobile clients are picky)
+    const mailto = `mailto:${CALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.assign(mailto);
   });
 
   // --- Desktop-call behavior: show number instead of tel: error ---
