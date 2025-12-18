@@ -384,6 +384,74 @@
       .hero-inner{ padding-top: 28px; }
       .grid{ grid-template-columns: 1fr; }
     }
+
+    /* Desktop call modal */
+    .call-modal{
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display:none;
+    }
+    .call-modal.open{display:block;}
+    .call-modal__backdrop{
+      position:absolute;
+      inset:0;
+      background: rgba(0,0,0,.45);
+    }
+    .call-modal__card{
+      position: relative;
+      max-width: 420px;
+      margin: 10vh auto 0;
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid rgba(15,23,42,.14);
+      box-shadow: 0 18px 60px rgba(15,23,42,.25);
+      padding: 14px;
+    }
+    .call-modal__top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .call-modal__title{
+      font-family:'Manrope',sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--text);
+    }
+    .call-modal__x{
+      border: 1px solid rgba(15,23,42,.14);
+      background: rgba(15,23,42,.03);
+      border-radius: 12px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      font-weight: 900;
+    }
+    .call-modal__num{
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: .3px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid rgba(15,23,42,.12);
+      color: var(--text);
+    }
+    .call-modal__actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .call-modal__hint{
+      margin-top: 10px;
+      color: rgba(11,18,32,.65);
+      font-size: 12px;
+      line-height: 1.45;
+    }
   </style>
 </head>
 
@@ -575,7 +643,7 @@
                 </div>
                 <div class="field">
                   <label id="cbPhoneLabel" for="cbPhone">Телефон *</label>
-                  <input id="cbPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+372 5xxxxxxx" required />
+                  <input id="cbPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="5xxxxxxx" required />
                 </div>
 
                 <div class="field full">
@@ -692,15 +760,45 @@
 
 <footer id="footerText">© 2025 Kodutehnika remont • Tallinn / Harjumaa</footer>
 
+<!-- Desktop "call" modal -->
+<div class="call-modal" id="callModal" aria-hidden="true">
+  <div class="call-modal__backdrop" data-call-close></div>
+  <div class="call-modal__card" role="dialog" aria-modal="true" aria-labelledby="callModalTitle">
+    <div class="call-modal__top">
+      <div class="call-modal__title" id="callModalTitle">Номер телефона</div>
+      <button class="call-modal__x" type="button" data-call-close aria-label="Закрыть">✕</button>
+    </div>
+
+    <div class="call-modal__num" id="callModalNumber">—</div>
+
+    <div class="call-modal__actions">
+      <button class="btn primary" type="button" id="callCopyBtn">Скопировать</button>
+      <button class="btn" type="button" data-call-close id="callCloseBtn">Закрыть</button>
+    </div>
+
+    <div class="call-modal__hint" id="callModalHint">
+      На компьютере звонок не запускается — скопируйте номер и позвоните с телефона.
+    </div>
+  </div>
+</div>
+
 <script>
   // куда отправлять "Перезвоните мне"
-  const CALLBACK_EMAIL = "martintachilin1996@gmail.com";
+  const CALLBACK_EMAIL = "Kodutehnika.remont@gmail.com";
 
-  const PHONES = { et: "53060770", ru: "55667590", en: "53060770" };
+  // phones per language (WITHOUT +372, as requested)
+  const PHONES = {
+    et: "58112889",
+    en: "58112889",
+    ru: "55667590"
+  };
 
+  // Prices per service
   const FROM = { wash:"35 €", dish:"35 €", fridge:"40 €", coffee:"35 €", dryer:"40 €", oven:"40 €" };
   const DIAG = "20–30 €";
-  const KM = "0,55 €/км";
+
+  // Travel fee (display)
+  const KM_VAL = "0,55 €/km";
 
   const T = {
     ru: {
@@ -723,11 +821,11 @@
       whyTitle: "Почему выбирают нас?",
       whyList: ["Выезд по Таллину и всему Харьюмаа","Понятные и честные диапазоны цен","Диагностика на месте","Опыт с разной бытовой техникой","Быстрая связь и выезд"],
       areaTitle: "Зона обслуживания",
-      areaText: `Обслуживаем клиентов в Таллине и Харьюмаа. За пределами Таллина добавляется дорожный сбор ${KM}.`,
+      areaText: `Обслуживаем клиентов в Таллине и Харьюмаа. За пределами Таллина добавляется дорожный сбор ${KM_VAL}.`,
       faqTitle: "Частые вопросы",
       faq: [
         ["Сколько стоит диагностика?", `Обычно ${DIAG}, зависит от техники и адреса.`],
-        ["Работаете ли вы за пределами Таллина?", `Да, обслуживаем весь Харьюмаа. Доплата ${KM}.`],
+        ["Работаете ли вы за пределами Таллина?", `Да, обслуживаем весь Харьюмаа. Доплата ${KM_VAL}.`],
         ["Цена фиксированная?", "Нет, цены ориентировочные. Итоговая цена — после диагностики."],
         ["Какие устройства вы ремонтируете?", "Большинство популярных: стиралки, холодильники, духовки, кофемашины, бойлеры и т.д."]
       ],
@@ -764,11 +862,11 @@
       whyTitle: "Miks valida meid?",
       whyList: ["Teenindus Tallinnas ja kogu Harjumaal","Selged ja ausad hinnavahemikud","Diagnostika kohapeal","Kogemus erinevate kodumasinatega","Kiire ühenduse võtmine ja väljakutse"],
       areaTitle: "Teeninduspiirkond",
-      areaText: `Teenindame kliente Tallinnas ja Harjumaal. Väljaspool Tallinna lisandub sõidutasu ${KM}.`,
+      areaText: `Teenindame kliente Tallinnas ja Harjumaal. Väljaspool Tallinna lisandub sõidutasu ${KM_VAL}.`,
       faqTitle: "Korduma kippuvad küsimused",
       faq: [
         ["Kui palju maksab diagnostika?", `Tavaliselt ${DIAG}, sõltuvalt seadmest ja asukohast.`],
-        ["Kas töötate väljaspool Tallinna?", `Jah, teenindame kogu Harjumaad. Lisandub tasu ${KM}.`],
+        ["Kas töötate väljaspool Tallinna?", `Jah, teenindame kogu Harjumaad. Lisandub tasu ${KM_VAL}.`],
         ["Kas hind on fikseeritud?", "Ei, hinnad on orientiirid. Lõplik hind selgub pärast diagnostikat."],
         ["Milliseid seadmeid te remondite?", "Enamikku levinud kodumasinaid: pesumasinad, külmikud, ahjud, kohvimasinad, boilerid jne."]
       ],
@@ -805,11 +903,11 @@
       whyTitle: "Why choose us?",
       whyList: ["Service in Tallinn and across Harju County","Clear and honest price ranges","On-site diagnostics","Experience with many appliance types","Fast response and call-out"],
       areaTitle: "Service area",
-      areaText: `We serve customers in Tallinn and Harju County. Outside Tallinn there is a travel fee of ${KM}.`,
+      areaText: `We serve customers in Tallinn and Harju County. Outside Tallinn there is a travel fee of ${KM_VAL}.`,
       faqTitle: "FAQ",
       faq: [
         ["How much does diagnostics cost?", `Usually ${DIAG}, depending on the device and location.`],
-        ["Do you work outside Tallinn?", `Yes, across Harju County. Travel fee ${KM}.`],
+        ["Do you work outside Tallinn?", `Yes, across Harju County. Travel fee ${KM_VAL}.`],
         ["Is the price fixed?", "No. Prices are guidance only. Final price is confirmed after diagnostics."],
         ["What appliances do you repair?", "Most common appliances: washing machines, fridges, ovens, coffee machines, boilers, etc."]
       ],
@@ -827,19 +925,29 @@
     }
   };
 
+  const CALL_UI = {
+    ru: { title:"Номер телефона", copy:"Скопировать", close:"Закрыть", hint:"На компьютере звонок не запускается — скопируйте номер и позвоните с телефона.", copied:"Скопировано" },
+    et: { title:"Telefoninumber", copy:"Kopeeri", close:"Sulge", hint:"Arvutis kõne ei käivitu — kopeeri number ja helista telefonist.", copied:"Kopeeritud" },
+    en: { title:"Phone number", copy:"Copy", close:"Close", hint:"Calls don’t start on desktop — copy the number and call from your phone.", copied:"Copied" }
+  };
+
   const el = (id) => document.getElementById(id);
 
   function setPhone(lang){
     const p = PHONES[lang];
+
     el("topPhone").textContent = p;
     el("topPhone").href = `tel:${p}`;
+
     el("topCallBtn").href = `tel:${p}`;
     el("heroCallBtn").href = `tel:${p}`;
+
     document.querySelectorAll("[data-call-btn]").forEach(a => a.href = `tel:${p}`);
   }
 
   function setAccordionPrices(lang){
     const t = T[lang];
+
     document.querySelectorAll(".svc").forEach(svc => {
       const key = svc.dataset.service;
       const from = FROM[key] || "35 €";
@@ -852,12 +960,14 @@
       const chipKm = svc.querySelector("[data-chip-km]");
       const note = svc.querySelector("[data-svc-note]");
       const cb = svc.querySelector("[data-callback-btn]");
+      const callBtn = svc.querySelector("[data-call-btn]");
 
       if (chipFrom) chipFrom.textContent = `${t.priceFrom} ${from}`;
       if (chipDiag) chipDiag.textContent = `${t.diag} ${DIAG}`;
-      if (chipKm) chipKm.textContent = `${t.outside}: +${KM}`;
+      if (chipKm) chipKm.textContent = `${t.outside}: +${KM_VAL}`;
       if (note) note.textContent = t.note;
       if (cb) cb.textContent = t.callback;
+      if (callBtn) callBtn.textContent = t.call; // IMPORTANT: call text per language
     });
   }
 
@@ -986,7 +1096,6 @@
     e.preventDefault();
 
     const lang = localStorage.getItem("lang") || "ru";
-    const t = T[lang];
 
     const name = document.getElementById("cbName").value.trim();
     const phone = document.getElementById("cbPhone").value.trim();
@@ -999,7 +1108,11 @@
       return;
     }
 
-    const subject = (lang === "et") ? "Tagasihelistamise soov" : (lang === "en" ? "Callback request" : "Запрос на звонок");
+    const subject =
+      (lang === "et") ? "Tagasihelistamise soov" :
+      (lang === "en") ? "Callback request" :
+      "Запрос на звонок";
+
     const body =
 `Language: ${lang.toUpperCase()}
 Name: ${name || "-"}
@@ -1012,6 +1125,95 @@ Sent from website`;
 
     const mailto = `mailto:${encodeURIComponent(CALLBACK_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
+  });
+
+  // --- Desktop-call behavior: show number instead of tel: error ---
+  function isMobileLike(){
+    const ua = navigator.userAgent || "";
+    const uaMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(ua);
+    const small = window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
+    const touch = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0);
+    return uaMobile || (touch && small);
+  }
+
+  const callModal = document.getElementById("callModal");
+  const callModalNumber = document.getElementById("callModalNumber");
+  const callModalTitle = document.getElementById("callModalTitle");
+  const callModalHint = document.getElementById("callModalHint");
+  const callCopyBtn = document.getElementById("callCopyBtn");
+  const callCloseBtn = document.getElementById("callCloseBtn");
+
+  function openCallModal(phone){
+    const lang = localStorage.getItem("lang") || "ru";
+    const ui = CALL_UI[lang] || CALL_UI.ru;
+
+    callModalTitle.textContent = ui.title;
+    callModalHint.textContent = ui.hint;
+    callCopyBtn.textContent = ui.copy;
+    callCloseBtn.textContent = ui.close;
+
+    callModalNumber.textContent = phone;
+    callModal.classList.add("open");
+    callModal.setAttribute("aria-hidden", "false");
+  }
+
+  function closeCallModal(){
+    callModal.classList.remove("open");
+    callModal.setAttribute("aria-hidden", "true");
+  }
+
+  document.querySelectorAll("[data-call-close]").forEach(elm => elm.addEventListener("click", closeCallModal));
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && callModal.classList.contains("open")) closeCallModal();
+  });
+
+  callCopyBtn.addEventListener("click", async () => {
+    const lang = localStorage.getItem("lang") || "ru";
+    const ui = CALL_UI[lang] || CALL_UI.ru;
+    const phone = (callModalNumber.textContent || "").trim();
+    if(!phone) return;
+
+    try{
+      await navigator.clipboard.writeText(phone);
+      const old = callCopyBtn.textContent;
+      callCopyBtn.textContent = ui.copied;
+      setTimeout(() => callCopyBtn.textContent = old, 900);
+    }catch(err){
+      const ta = document.createElement("textarea");
+      ta.value = phone;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      const old = callCopyBtn.textContent;
+      callCopyBtn.textContent = ui.copied;
+      setTimeout(() => callCopyBtn.textContent = old, 900);
+    }
+  });
+
+  // Intercept clicks on tel links on desktop
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a");
+    if(!a) return;
+
+    const isCallLink =
+      a.id === "topCallBtn" ||
+      a.id === "heroCallBtn" ||
+      a.hasAttribute("data-call-btn") ||
+      (a.getAttribute("href") || "").startsWith("tel:");
+
+    if(!isCallLink) return;
+
+    if(isMobileLike()){
+      return; // mobile -> allow tel:
+    }
+
+    const href = a.getAttribute("href") || "";
+    if(!href.startsWith("tel:")) return;
+
+    e.preventDefault();
+    const phone = decodeURIComponent(href.replace(/^tel:/, "")).trim();
+    openCallModal(phone);
   });
 
   // Language switch
