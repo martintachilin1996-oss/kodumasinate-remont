@@ -5,16 +5,16 @@
   <meta name="robots" content="index,follow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Ремонт бытовой техники в Таллине и Харьюмаа | HomeService</title>
-  <meta name="description" content="Ремонт бытовой техники в Таллине и Харьюмаа: стиральные машины, посудомойки, холодильники, кофемашины, сушилки, плиты и духовки. Вызов мастера и обратный звонок." />
-  <link rel="canonical" href="https://homeservice.ee/" />
-  <meta property="og:title" content="Ремонт бытовой техники в Таллине и Харьюмаа | HomeService" />
-  <meta property="og:description" content="Ремонт бытовой техники в Таллине и Харьюмаа: стиральные машины, посудомойки, холодильники, кофемашины, сушилки, плиты и духовки. Вызов мастера и обратный звонок." />
-  <meta property="og:url" content="https://homeservice.ee/" />
+  <title>Ремонт кофемашин в Таллине | HomeService</title>
+  <meta name="description" content="Ремонт кофемашин в Таллине и Харьюмаа: диагностика и ремонт популярных моделей, вызов мастера, обратный звонок." />
+  <link rel="canonical" href="https://homeservice.ee/coffee-machines/" />
+  <meta property="og:title" content="Ремонт кофемашин в Таллине | HomeService" />
+  <meta property="og:description" content="Ремонт кофемашин в Таллине и Харьюмаа: диагностика и ремонт популярных моделей, вызов мастера, обратный звонок." />
+  <meta property="og:url" content="https://homeservice.ee/coffee-machines/" />
   <meta property="og:image" content="https://homeservice.ee/hero.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ремонт бытовой техники в Таллине и Харьюмаа | HomeService" />
-  <meta name="twitter:description" content="Ремонт бытовой техники в Таллине и Харьюмаа: стиральные машины, посудомойки, холодильники, кофемашины, сушилки, плиты и духовки. Вызов мастера и обратный звонок." />
+  <meta name="twitter:title" content="Ремонт кофемашин в Таллине | HomeService" />
+  <meta name="twitter:description" content="Ремонт кофемашин в Таллине и Харьюмаа: диагностика и ремонт популярных моделей, вызов мастера, обратный звонок." />
   <meta name="twitter:image" content="https://homeservice.ee/hero.jpg" />
 
   <meta property="og:type" content="website" />
@@ -528,19 +528,25 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "HomeService",
-  "telephone": ["+37258112889","+37255667590"],
-  "areaServed": ["Tallinn","Harju County","Estonia"],
+  "url": "https://homeservice.ee/",
+  "telephone": ["+37258112889", "+37255667590"],
+  "email": "Kodutehnika.remont@gmail.com",
+  "areaServed": ["Tallinn", "Harju County", "Estonia"],
+  "serviceType": ["Appliance repair service"],
   "openingHours": "Mo-Su 10:00-20:00",
-  "serviceType": "Appliance repair service"
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+37258112889",
+      "contactType": "customer service",
+      "areaServed": "EE",
+      "availableLanguage": ["ru", "et", "en"]
+    }
+  ]
 }
 </script>
 
-<link rel="alternate" hreflang="ru" href="?lang=ru">
-<link rel="alternate" hreflang="et" href="?lang=et">
-<link rel="alternate" hreflang="en" href="?lang=en">
-<link rel="alternate" hreflang="x-default" href="?lang=ru">
 </head>
-
 
 <body>
 
@@ -912,8 +918,6 @@
 
   const T = {
     ru: {
-      metaTitle: "Ремонт бытовой техники в Таллине | HomeService",
-      metaDescription: "Профессиональный ремонт бытовой техники в Таллине и Харьюмаа. Стиральные машины, посудомойки, холодильники. Вызов мастера.",
       brandTitle: "Ремонт бытовой техники",
       brandArea: "Таллин / Харьюмаа",
       topHint: "10:00–20:00 · Tallinn / Harjumaa",
@@ -978,8 +982,6 @@
     },
 
     et: {
-      metaTitle: "Kodumasinate remont Tallinnas | HomeService",
-      metaDescription: "Kodumasinate remont Tallinnas ja Harjumaal. Pesumasinad, nõudepesumasinad, külmikud. Meistri väljakutse.",
       brandTitle: "Kodutehnika remont",
       brandArea: "Tallinn / Harjumaa",
       topHint: "10:00–20:00 · Tallinn / Harjumaa",
@@ -1044,8 +1046,6 @@
     },
 
     en: {
-      metaTitle: "Appliance repair in Tallinn | HomeService",
-      metaDescription: "Professional appliance repair in Tallinn and Harju County. Washing machines, dishwashers, fridges. Technician visit.",
       brandTitle: "Appliance Repair",
       brandArea: "Tallinn / Harju County",
       topHint: "10:00–20:00 · Tallinn / Harju County",
@@ -1425,6 +1425,25 @@ ${m.sent}`;
 
   // init
   applyLang(localStorage.getItem("lang") || "ru");
+</script>
+
+
+<script>
+(function() {
+  function openService() {
+    var key = "coffee";
+    var item = document.querySelector('.svc[data-service="' + key + '"]');
+    if (!item) return;
+    var btn = item.querySelector('.svc-btn');
+    if (btn) btn.click();
+    item.scrollIntoView({behavior:"instant", block:"start"});
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", openService);
+  } else {
+    openService();
+  }
+})();
 </script>
 
 </body>
