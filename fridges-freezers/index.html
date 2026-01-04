@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Ремонт бытовой техники в Таллине и Харьюмаа | HomeService</title>
-  <meta name="description" content="Ремонт бытовой техники в Таллине и Харьюмаа: стиральные машины, посудомойки, холодильники, кофемашины, сушилки, плиты и духовки. Вызов мастера и обратный звонок." />
-  <link rel="canonical" href="https://homeservice.ee/" />
-  <meta property="og:title" content="Ремонт бытовой техники в Таллине и Харьюмаа | HomeService" />
-  <meta property="og:description" content="Ремонт бытовой техники в Таллине и Харьюмаа: стиральные машины, посудомойки, холодильники, кофемашины, сушилки, плиты и духовки. Вызов мастера и обратный звонок." />
-  <meta property="og:url" content="https://homeservice.ee/" />
+  <title>Ремонт холодильников и морозилок в Таллине | HomeService</title>
+  <meta name="description" content="Ремонт холодильников и морозильных камер в Таллине и Харьюмаа: диагностика на месте, прозрачный ориентир по стоимости, вызов мастера." />
+  <link rel="canonical" href="https://homeservice.ee/fridges-freezers/" />
+  <meta property="og:title" content="Ремонт холодильников и морозилок в Таллине | HomeService" />
+  <meta property="og:description" content="Ремонт холодильников и морозильных камер в Таллине и Харьюмаа: диагностика на месте, прозрачный ориентир по стоимости, вызов мастера." />
+  <meta property="og:url" content="https://homeservice.ee/fridges-freezers/" />
   <meta property="og:type" content="website" />
 <title id="metaTitle">Ремонт бытовой техники в Таллине и Харьюмаа</title>
 
@@ -1387,6 +1387,25 @@ ${m.sent}`;
 
   // init
   applyLang(localStorage.getItem("lang") || "ru");
+</script>
+
+
+<script>
+(function() {
+  function openService() {
+    var key = "fridge";
+    var item = document.querySelector('.svc[data-service="' + key + '"]');
+    if (!item) return;
+    var btn = item.querySelector('.svc-btn');
+    if (btn) btn.click();
+    item.scrollIntoView({behavior:"instant", block:"start"});
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", openService);
+  } else {
+    openService();
+  }
+})();
 </script>
 
 </body>
