@@ -1417,8 +1417,12 @@ localStorage.setItem("lang", initLang);
 applyLang(initLang);
 </script>
 
+
 <script>
-/* === CALL CLICK LOGGER (Google Sheets via Apps Script) === */
+/* === CALL CLICK LOGGER (Google Sheets via Apps Script) ===
+   IMPORTANT: Apps Script Web Apps обычно не отдают CORS-заголовки.
+   Поэтому шлём "simple request" (form-urlencoded) без preflight.
+*/
 const CALL_LOG_ENDPOINT = "https://script.google.com/macros/s/AKfycbxe6vEb_lgS_5eMyHJgR0m3qzUgELKDFKwpuU2g41BQyfdTBTTthe0A2zfNnoRkJAjyTQ/exec";
 const CALL_LOG_SECRET = "OGsecret23";
 
@@ -1440,7 +1444,7 @@ function detectManager(phone){
 }
 
 function sendCallLog(phone){
-  const payload = JSON.stringify({
+  const payloadObj = {
     secret: CALL_LOG_SECRET,
     phone_key: detectManager(phone),
     phone_number: phone,
@@ -1448,20 +1452,25 @@ function sendCallLog(phone){
     page: location.pathname + location.hash,
     referrer: document.referrer || "",
     user_agent: navigator.userAgent || ""
-  });
+  };
 
+  // form-urlencoded => simple request (без CORS preflight)
+  const formBody = new URLSearchParams(payloadObj);
+
+  // 1) sendBeacon — самый надёжный для tel: на мобиле
   if(navigator.sendBeacon){
-    navigator.sendBeacon(
-      CALL_LOG_ENDPOINT,
-      new Blob([payload], {type:"application/json"})
-    );
-    return;
+    try{
+      navigator.sendBeacon(CALL_LOG_ENDPOINT, formBody);
+      return;
+    }catch(e){}
   }
 
+  // 2) fallback fetch — без заголовков, чтобы не было preflight
   fetch(CALL_LOG_ENDPOINT, {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: payload
+    method: "POST",
+    mode: "no-cors",
+    body: formBody,
+    keepalive: true
   }).catch(()=>{});
 }
 
